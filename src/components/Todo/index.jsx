@@ -5,7 +5,7 @@ import Form from './components/Form'
 import FilterButton from './components/FilterButton'
 import { useState } from 'react';
 import { nanoid } from 'nanoid';
-
+import './index.css'
 
 function App (props) {
   const [tasks, setTasks] = useState(props.tasks);

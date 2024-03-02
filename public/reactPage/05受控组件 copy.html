@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+
+</head>
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+    class MyDom extends React.Component{
+      state = {
+        isHot:false
+      }
+      alertData=()=>{
+        console.log('aaa')
+
+      }
+      getFormData=(key)=>{
+        return (event)=>{
+          console.log(key,event.target.value);
+        }
+      }
+      getAddr=(event,key)=>{
+        console.log(key,event.target.value);
+       
+      }
+      render(){
+        return (
+          <form>
+            userName：<input type="text" name="userName" onChange={this.getFormData('userName')}/>
+            密码：<input type="password" name="password" onChange={this.getFormData('password')}/>
+            地址：<input type="text" name="addr" onChange={(dom)=>this.getAddr(dom,'addr')}/>
+            <button onClick={this.alertData}>按钮</button>
+          </form>
+        )
+      }
+      
+    }
+    const identify = {
+      name:'ty',
+      age:25,
+      adds:'深圳',
+      speak:()=>{console.log('我会演讲')}
+    }
+    ReactDOM.render(<MyDom name="ty" age="35" {...identify}/>,document.getElementById("app"))
+  </script>
+</body>
+</html>

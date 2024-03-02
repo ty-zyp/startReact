@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+
+</head>
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+    class MyDom extends React.Component{
+      state = {
+        isHot:false
+      }
+      btn=()=>{
+        console.log('aaa')
+        console.log(this.state)
+        this.setState({isHot:!this.state.isHot})
+      }
+      static propTypes = {
+        name:PropTypes.string.isRequired,
+        speak:PropTypes.func
+      }
+      static defaultProps = {
+        name:'zs',
+        sex:'男',
+        
+      }
+      render(){
+        
+        console.log(this,this.props)
+        const {isHot} = this.state;
+        return (
+          <div>
+            <input type="text" ref="input"/>
+            <input type="text" ref={c=>this.input2=c}/>
+            <div onClick={this.btn}>今天天气很{isHot?'热':'凉爽'}-{this.props.name}-{this.input2}</div>
+            <button onClick={()=>alert(this.input2.value)}>按钮</button>
+          </div>
+        )
+      }
+      
+    }
+    const identify = {
+      name:'ty',
+      age:25,
+      adds:'深圳',
+      speak:()=>{console.log('我会演讲')}
+    }
+    ReactDOM.render(<MyDom name="ty" age="35" {...identify}/>,document.getElementById("app"))
+  </script>
+</body>
+</html>

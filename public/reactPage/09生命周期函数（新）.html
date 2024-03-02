@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+</head>
+<style>
+  .list{
+    width: 200px;
+    height: 150px;
+    background-color: skyblue;
+    overflow: auto;
+  }
+  .news{
+    height:30px;
+  }
+</style>
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+    class MyDom extends React.Component{
+      state = {newsArr:[],mouseType:false}
+      mouseIn=()=>{
+        console.log('aa')
+        this.setState({mouseType:true})
+      }
+      mouseOut=()=>{
+        console.log('bb')
+        this.setState({mouseType:false})
+      }
+      componentDidMount(){
+        // console.log('componentDidMount')
+        setInterval(()=>{
+          const {newsArr} = this.state;
+          const news = '新闻'+(newsArr.length+1)
+          this.setState({newsArr:[news,...newsArr]})
+        },1000)
+      }
+
+      getSnapshotBeforeUpdate(){
+        // console.log('getSnapshotBeforeUpdate')
+        return this.refs.list.scrollHeight;
+      }
+
+      componentDidUpdate(preProps,preState,height){
+        // console.log('组件更新完成','componentDidUpdate');
+        if(this.state.mouseType){
+          this.refs.list.scrollTop+=this.refs.list.scrollHeight-height;
+        }else{
+          this.refs.list.scrollTop = 0
+        }
+   
+      }
+
+      render(){
+        // console.log('render函数')
+        const arr = this.state.newsArr.map((item,index)=>{
+          return <div className="news" key={index}>{item}</div>
+        })
+        return (
+          <div className="list" ref="list" onMouseOver={this.mouseIn} onMouseLeave={this.mouseOut}>
+            {arr}
+          </div>
+        )
+      }
+      
+    }
+
+    ReactDOM.render(<MyDom/>,document.getElementById("app"))
+  </script>
+</body>
+</html>

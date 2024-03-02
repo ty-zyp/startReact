@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/prop-types/15.8.1/prop-types.js"></script>
+
+</head>
+<body>
+  <div id="app"></div>
+  <script type="text/babel">
+    class MyDom extends React.Component{
+      constructor(props){ // 构造器函数
+        super(props)
+        console.log('constructor');
+        this.state = {
+          count:1
+        }
+      }
+
+      deleteDom=()=>{// 卸载组件
+        // clearInterval(this.timer) // 清除定时器
+        ReactDOM.unmountComponentAtNode(document.getElementById('app'))
+      }
+      add=()=>{// 卸载组件
+        let {count} = this.state;
+        count+=1;
+        this.setState({count})
+      }
+      force=()=>{// 卸载组件
+        this.forceUpdate()
+      }
+      static getDerivedStateFromProps(){
+        console.log('getDerivedStateFromProps')
+        return null
+      }
+      getSnapshotBeforeUpdate(){
+        console.log('getSnapshotBeforeUpdate')
+        return null
+      }
+      // UNSAFE_componentWillReceiveProps(){
+      //   console.log('组件将要接收props','componentWillReceiveProps')
+      // }
+      shouldComponentUpdate(){
+        console.log('组件是否要更新','shouldComponentUpdate')
+        return true; // return false不更新
+      }
+      // UNSAFE_componentWillUpdate(){
+      //   console.log('组件将要更新','componentWillUpdate')
+      // }
+      componentDidUpdate(){
+        console.log('组件更新完成','componentDidUpdate')
+      }
+      // UNSAFE_componentWillMount(){
+      //   console.log('组件将要挂载','componentWillMount')
+      // }
+      // 组件挂载完毕调用
+      componentDidMount(){
+        console.log('组件挂载完毕','componentDidMount')
+      }
+      componentWillUnmount(){
+        console.log('组件将要卸载','componentWillUnmount')
+        clearInterval(this.timer) // 清除定时器
+      }
+      render(){
+        console.log('render函数')
+        return (
+          <div>
+            <p>{this.state.count}</p>
+            <button onClick={this.add}>点我+1</button>
+            <button onClick={this.deleteDom}>不活了</button>
+            <button onClick={this.force}>强制更新</button>
+          </div>
+      
+        )
+      }
+      
+    }
+
+    ReactDOM.render(<MyDom/>,document.getElementById("app"))
+  </script>
+</body>
+</html>

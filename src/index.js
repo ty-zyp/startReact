@@ -1,22 +1,38 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {BrowserRouter,HashRouter} from 'react-router-dom'
 import './index.css';
 import App from './App';
-import reportWebVitals from './reportWebVitals';
+import store from './redux/store'
+import { Provider } from 'react-redux';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
-const DATA = [
-  { id: "todo-0", name: "Eat", completed: true },
-  { id: "todo-1", name: "Sleep", completed: false },
-  { id: "todo-2", name: "Repeat", completed: false },
-]
 root.render(
   <React.StrictMode>
-    <App tasks={ DATA } />
+    <BrowserRouter>
+      {/* <HashRouter> */}
+      <Provider store={store}>
+        <App />
+      </Provider>
+      
+    {/* </HashRouter> */}
+    </BrowserRouter>
   </React.StrictMode>
 );
 
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+// redux不能更新状态，需要在subscribe方法里面更新执行render函数
+// react-redux能自动更新状态， UI组件是包裹在容器组件里面的，可以实时更新。
+
+// store.subscribe(() => {
+//   root.render(
+//     <React.StrictMode>
+//       <BrowserRouter>
+//       {/* <HashRouter> */}
+//         <App />
+//       {/* </HashRouter> */}
+//       </BrowserRouter>
+//     </React.StrictMode>
+//   );
+// })
+
+

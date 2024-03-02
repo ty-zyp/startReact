@@ -1,7 +1,6 @@
-import React,{useState,useRef} from 'react'
+import React,{useRef} from 'react'
 
 function FilterButton (props) {
-  // const [isSelected, setIsSelected] = useState(false);
   const isa = useRef(props);
   console.log(isa.current.isPressed)
   function changeType () {
