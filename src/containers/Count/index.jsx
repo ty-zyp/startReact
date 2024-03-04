@@ -10,7 +10,7 @@ import { createIncrementAction, createDecrementAction, createIncrementAsyncActio
 // 返回对像中的key作为传递给UI组件props的key，value就作为传递给UI组件props的value
 // mapStateToProps 用于传递状态
 function mapStateToProps (state) {
-  return {count:state}
+  return {count:state.count,renNum:state.persons.length}
 }
 // mapDispatchToProps函数返回的是一个对像；
 // 对像中的key作为传递给UI组件props的key，value就作为传递给UI组件props的value
@@ -23,21 +23,23 @@ function mapDispatchToProps (dispatch) {
   }
 }
 // 创建并暴露一个Count组件
-// export default connect(mapStateToProps,mapDispatchToProps)(CountUI);
-export default connect(
-  state => ({ count: state}),
+export default connect(mapStateToProps, mapDispatchToProps)(CountUI);
 
-  // 操作状态的方法，简化一 写成函数
-  // dispatch=>  ({
-  //   'increment': data => dispatch(createIncrementAction(data)),
-  //   'decrement': data => dispatch(createDecrementAction(data)),
-  //   'incrementSync': (data,time) => dispatch(createIncrementAsyncAction(data,time)),
-  // })
+// 简写方式
+// export default connect(
+//   state => ({ count: state}),
 
-  // 操作状态的方法，简化二 写成一个对像
-  {
-    'increment': createIncrementAction,
-    'decrement': createDecrementAction,
-    'incrementSync': createIncrementAsyncAction,
-  }
-)(CountUI);
+//   // 操作状态的方法，简化一 写成函数
+//   // dispatch=>  ({
+//   //   'increment': data => dispatch(createIncrementAction(data)),
+//   //   'decrement': data => dispatch(createDecrementAction(data)),
+//   //   'incrementSync': (data,time) => dispatch(createIncrementAsyncAction(data,time)),
+//   // })
+
+//   // 操作状态的方法，简化二 写成一个对像
+//   {
+//     'increment': createIncrementAction,
+//     'decrement': createDecrementAction,
+//     'incrementSync': createIncrementAsyncAction,
+//   }
+// )(CountUI);

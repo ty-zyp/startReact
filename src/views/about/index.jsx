@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Count from '../../components/ReduxCount';
 import ReactReduxCount from '../../containers/Count';
 import Person from '../../containers/Person'
-import store from '../../redux/store'
+// import store from '../../redux/store'
 export default class About extends Component {
   render() {
     return (

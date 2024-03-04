@@ -13,32 +13,33 @@ export default class index extends Component {
   }
   increment = () => {
     const { value } = this.selectNumber;
-    store.dispatch(createIncrementAction(value*1))
+    store.dispatch(createIncrementAction({ count: value * 1 }))
   }
   decrement=()=>{
     const { value } = this.selectNumber;
-    store.dispatch(createDecrementAction(value*1))
+    store.dispatch(createDecrementAction({ count: value * 1 }))
   }
   incrementOfOdd = () => {
-    const count = store.getState();
+    const { count } = store.getState();
     if (count % 2 === 0) {
       return;
     }
     const { value } = this.selectNumber;
-    store.dispatch(createIncrementAction(value*1))
+    store.dispatch(createIncrementAction({ count: value * 1 }))
 
   }
   incrementAsync=()=>{
     const { value } = this.selectNumber;
     // setTimeout(() => {
-      store.dispatch(createIncrementAsyncAction(value*1,500))
+      store.dispatch(createIncrementAsyncAction({ count: value * 1 },500))
     // },1000)
     
   }
-  render() {
+  render () {
+    const { count:{count} } = store.getState();
     return (
       <div>
-        <h1>当前求和为：{ store.getState()}</h1>
+        <h1>当前求和为：{count }</h1>
         <select ref={c=>this.selectNumber=c}>
           <option value="1">1</option>
           <option value="2">2</option>
